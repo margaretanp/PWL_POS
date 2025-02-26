@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('penjualan_detail_id');
             $table->unsignedBigInteger('penjualan_id');
             $table->unsignedBigInteger('barang_id');
+            $table->integer('harga');
             $table->integer('jumlah');
-            $table->double('subtotal');
             $table->timestamps();
 
             // Foreign Key ke tabel t_penjualan dan m_barang

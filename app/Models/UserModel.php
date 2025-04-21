@@ -19,4 +19,9 @@ class UserModel extends Model
     */
     // protected $fillable = ['level_id', 'username', 'nama', 'password']; //Mendefinisikan kolom yang dapat diisi oleh model ini
     protected $fillable = ['level_id', 'username', 'nama', 'password' ];
+
+    public function level()
+    {
+        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id'); //Mendefinisikan relasi antara model ini dengan model LevelModel
+    }
 }

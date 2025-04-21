@@ -10,48 +10,56 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user =  UserModel::all(); //ambil semua data dari tabel m_user
-        return view('user', ['data' => $user]);
+        $user = UserModel::with('level')->get(); //ambil semua data dari tabel m_user dengan relasi level
+        return view('user', ['data' => $user]); //kirim data user ke view
     }
-    public function tambah()
-    {
-        return view('user_tambah');
-    }
-    public function tambah_simpan(Request $request)
-    {
-        UserModel::create([
-            'username' => $request->username,  
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level_id' => $request->level_id,
-        ]);
-        return redirect('/user'); //redirect ke halaman user setelah data disimpan
-    }
-    public function ubah($id)
-    {
-        $user = UserModel::find($id); //ambil data user dengan id yang sesuai
-        return view('user_ubah', ['data' => $user]); //kirim data user ke view
-    }
-    public function ubah_simpan(Request $request, $id)
-    {
-        $user = UserModel::find($id); //ambil data user dengan id yang sesuai
+    // {
+    //     $user = UserModel::with('level')->get(); //ambil semua data dari tabel m_user dengan relasi level
+    //     dd($user); //debug data user
+    // }
+    // {
+    //     $user =  UserModel::all(); //ambil semua data dari tabel m_user
+    //     return view('user', ['data' => $user]);
+    // }
+    // public function tambah()
+    // {
+    //     return view('user_tambah');
+    // }
+    // public function tambah_simpan(Request $request)
+    // {
+    //     UserModel::create([
+    //         'username' => $request->username,  
+    //         'nama' => $request->nama,
+    //         'password' => Hash::make($request->password),
+    //         'level_id' => $request->level_id,
+    //     ]);
+    //     return redirect('/user'); //redirect ke halaman user setelah data disimpan
+    // }
+    // public function ubah($id)
+    // {
+    //     $user = UserModel::find($id); //ambil data user dengan id yang sesuai
+    //     return view('user_ubah', ['data' => $user]); //kirim data user ke view
+    // }
+    // public function ubah_simpan(Request $request, $id)
+    // {
+    //     $user = UserModel::find($id); //ambil data user dengan id yang sesuai
        
-        $user->username = $request->username; //update username
-        $user->nama = $request->nama; //update nama
-        $user->password = Hash::make($request->password); //update password
-        $user->level_id = $request->level_id; //update level_id
+    //     $user->username = $request->username; //update username
+    //     $user->nama = $request->nama; //update nama
+    //     $user->password = Hash::make($request->password); //update password
+    //     $user->level_id = $request->level_id; //update level_id
 
-        $user->save(); //simpan perubahan ke database
+    //     $user->save(); //simpan perubahan ke database
 
-        return redirect('/user'); //redirect ke halaman user setelah data disimpan
-    }
-    public function hapus($id)
-    {
-        $user = UserModel::find($id); //ambil data user dengan id yang sesuai
-        $user->delete(); //hapus data user
+    //     return redirect('/user'); //redirect ke halaman user setelah data disimpan
+    // }
+    // public function hapus($id)
+    // {
+    //     $user = UserModel::find($id); //ambil data user dengan id yang sesuai
+    //     $user->delete(); //hapus data user
 
-        return redirect('/user'); //redirect ke halaman user setelah data dihapus   
-    }
+    //     return redirect('/user'); //redirect ke halaman user setelah data dihapus   
+    // }
     
         // $user = UserModel::create([
         //     'username' => 'manager11',
